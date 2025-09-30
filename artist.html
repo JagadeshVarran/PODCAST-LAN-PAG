@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Artists — Tap to Play</title>
+  <link rel="stylesheet" href="artist.css">
+</head>
+<body>
+<main>
+  <h1>Artists — tap a card to play</h1>
+
+  <div class="artist-grid">
+
+    <!-- Artist 1 -->
+    <div class="artist-card" tabindex="0" role="button" aria-pressed="false">
+      <img class="cover" src="podca1.webp" alt="Taylor Swift">
+      <div class="meta">
+        <h3>Taylor Swift</h3>
+        <p>American singer-songwriter — tap card to play/pause.</p>
+      </div>
+      <audio preload="auto">
+        <source src="artist1.mp3" type="audio/mpeg">
+      </audio>
+      <button class="play-btn" aria-label="Play">▶</button>
+    </div>
+
+    <!-- Artist 2 -->
+    <div class="artist-card" tabindex="0" role="button" aria-pressed="false">
+      <img class="cover" src="podca 2.jpg" alt="Bryan Adams">
+      <div class="meta">
+        <h3>Bryan Adams</h3>
+        <p>Legendary Canadian rock artist — tap card to play/pause.</p>
+      </div>
+      <audio preload="auto">
+        <source src="artist2.mp3" type="audio/mpeg">
+      </audio>
+      <button class="play-btn" aria-label="Play">▶</button>
+    </div>
+
+    <!-- Artist 3 -->
+    <div class="artist-card" tabindex="0" role="button" aria-pressed="false">
+      <img class="cover" src="podcas3.jpg" alt="Ariana Grande">
+      <div class="meta">
+        <h3>Ariana Grande</h3>
+        <p>Pop star — demo clip, tap card to play/pause.</p>
+      </div>
+      <audio preload="auto">
+        <source src="artist3.mp3" type="audio/mpeg">
+      </audio>
+      <button class="play-btn" aria-label="Play">▶</button>
+    </div>
+
+  </div>
+</main>
+
+<!-- JS -->
+<script>
+const cards = document.querySelectorAll('.artist-card');
+let currentAudio = null;
+let currentBtn = null;
+
+cards.forEach(card => {
+  const audio = card.querySelector('audio');
+  const btn = card.querySelector('.play-btn');
+
+  function togglePlay() {
+    if (currentAudio && currentAudio !== audio) {
+      currentAudio.pause();
+      currentBtn.textContent = '▶';
+      currentBtn.classList.remove('playing');
+    }
+    if (audio.paused) {
+      audio.play();
+      btn.textContent = '▮▮';
+      btn.classList.add('playing');
+      currentAudio = audio;
+      currentBtn = btn;
+    } else {
+      audio.pause();
+      btn.textContent = '▶';
+      btn.classList.remove('playing');
+    }
+  }
+
+  card.addEventListener('click', togglePlay);
+  audio.addEventListener('ended', () => {
+    btn.textContent = '▶';
+    btn.classList.remove('playing');
+  });
+});
+</script>
+</body>
+</html>
